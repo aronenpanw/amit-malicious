@@ -14,3 +14,14 @@ resource "aws_s3_bucket" "this" {
     }
   }
 }
+
+resource "aws_s3_bucket" "this_log_bucket" {
+  bucket = "this-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  target_bucket = aws_s3_bucket.this_log_bucket.id
+  target_prefix = "log/"
+}
